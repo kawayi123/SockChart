@@ -8,7 +8,7 @@ public interface Constants {
 
     /*** socket address */
     String SOCKET_SERVER = "";
-
+//rrr
     /*** 接口响应code */
     interface HttpResponseCode {
         int DEFAULT = 0; // success
