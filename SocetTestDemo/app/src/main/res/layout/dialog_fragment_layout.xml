@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/radius_bottom_alert_ui"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textColor="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add a trading pair"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/dp_21"
+        android:layout_marginLeft="@dimen/dp_16"
+        tools:ignore="MissingConstraints" />
+
+
+    <com.hash.socettestdemo.wiget.segmented.SegmentedControlView
+        android:id="@+id/scv1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_37"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_18"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_21"
+        app:segItemHorizontalMargin="3dp"
+        app:segItemVerticalMargin="3dp"
+        app:segTextSize="17sp"
+        app:segItemPadding="40dp"
+        app:segTextColor="#B5B6C8"
+        app:segBackgroundColor="#ECEDED"
+        app:segSelectedItemTextColor="#000000"
+        app:segSelectedItemBackgroundColor="#ffffff"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="36dp"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_21"
+        android:background="@drawable/input_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_search" />
+
+        <ImageView
+            android:layout_width="1dp"
+            android:layout_height="11dp"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_marginRight="2dp"
+            android:background="@color/white" />
+
+        <com.hash.socettestdemo.wiget.clearedit.ClearableEditText
+            android:id="@+id/etQueryContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:singleLine="true"
+            android:hint="@string/search_assets"
+            android:textColor="@color/green"
+            android:textColorHint="#5F7A93"
+            android:textSize="@dimen/sp_12" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_21"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_200"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_21"
+        android:layout_marginRight="@dimen/dp_21"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"/>
+
+
+</LinearLayout>

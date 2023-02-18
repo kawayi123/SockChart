@@ -1,0 +1,113 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.protobuf'
+//    id 'kotlin-android'
+//    id 'kotlin-android-extensions'
+//    id 'com.google.gms.google-services'
+
+}
+
+android {
+    namespace 'com.hash.socettestdemo'
+    compileSdk 33
+    dexOptions {
+
+        preDexLibraries false
+
+    }
+    defaultConfig {
+        applicationId "com.hash.socettestdemo"
+        minSdk 27
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+        viewBinding {
+            enabled true
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            proto {
+                srcDir 'src/main/proto' //指定.proto文件路径
+                include '**/*.proto'  //find it
+            }
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion '25.3.0'
+                }
+            }
+        }
+    }
+    //编译并生成
+    protobuf {
+        protoc { // 也可以配置本地编译器路径
+            artifact = 'com.google.protobuf:protoc:3.21.12'
+        }
+        plugins {
+            javalite {
+                // The codegen for lite comes as a separate artifact
+                artifact = 'com.google.protobuf:protobuf-java:3.21.12'
+            }
+        }
+        //这里配置生成目录，编译后会在build的目录下生成对应的java文件和C文件
+        generateProtoTasks {
+            all().each { task ->
+                task.builtins {
+                    // In most cases you don't need the full Java output
+                    // if you use the lite output.
+                    remove java
+                }
+                task.builtins {
+                    java {} //java文件
+                    cpp {} //C文件
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.5.0'
+//    implementation  'com.scwang.smart:refresh-header-material:2.0.0-alpha-1'    //谷歌刷新头
+
+//    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    // protobuf
+    implementation 'com.google.protobuf:protobuf-java:3.21.12'
+    implementation 'com.google.protobuf:protoc:3.21.12'
+    implementation 'com.google.protobuf:protobuf-java-util:3.19.2'
+    // websocket
+    implementation 'com.github.0xZhangKe:WebSocketDemo:3.1'
+    implementation 'com.github.duxl:AndroidQuicklib:v1.0.0_bate6.3.3'
+    implementation project(':KLineChartLib')
+
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3'
+//    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3'
+
+}

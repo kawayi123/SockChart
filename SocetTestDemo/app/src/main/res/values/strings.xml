@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">SocetTestDemo</string>
+    <string name="watichlist">Watchlist</string>
+    <string name="crypto">crypto</string>
+    <string name="forex">Forex</string>
+    <string name="search_assets">Search assets</string>
+
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--<color name="chart_red">#26BF66</color>-->
+    <!--<color name="chart_red">#FF8A7C</color>-->
+    <color name="chart_red">#D04B63</color>
+    <color name="color_D04B63">#FF8A7C</color>
+    <color name="color_6384FF">#17FF58</color>
+    <color name="color_E8D28E">#E8D28E</color>
+    <color name="color_57BEB1">#57BEB1</color>
+    <color name="color_53B4A9">#53B4A9</color>
+    <color name="chart_green">#53B4A9</color>
+    <!--<color name="chart_green">#ffffff</color>-->
+    <color name="chart_line">#FF298BEE</color>
+    <color name="chart_line_background">#6E1F2F48</color>
+    <color name="chart_line_background_color">#00ffffff</color>
+    <color name="one_minute_area_color">#6DF5BF7F</color>
+
+    <!--<color name="chart_line_white">#66ffffff</color>-->
+    <color name="chart_line_white">#445498FF</color>
+    <color name="chart_line_color">#17FF58</color>
+
+    <color name="chart_ma5">#DA8AE5</color>
+    <color name="chart_ma10">#39B0E8</color>
+    <color name="chart_ma30">#FFC76D</color>
+    <color name="chart_white">#FF298BEE</color>
+    <color name="green">#17FF58</color>
+
+    <color name="chart_background">#202326</color>
+    <color name="chart_bac">#111622</color>
+    <color name="chart_point_bac">#202326</color>
+    <color name="chart_grid_line">#66304664</color>
+    <color name="chart_text">#818596</color>
+    <color name="chart_selector_new">#882E3546</color>
+    <color name="chart_tab_background">#30343C</color>
+    <color name="color_2982D1">#3F51B5</color>
+    <color name="chart_tab_indicator">#FF6601</color>
+    <color name="color_111622">#111622</color>
+    <color name="chart_yellow">#F6DB91</color>
+</resources>

@@ -1,0 +1,318 @@
+syntax = "proto3";
+//option java_package = "com.exchange2currency.ef.currencyprice.grpc";
+option java_package = "com.exchange2currency.ef.currencyconvert.grpc";
+//option js_ackage = "com.exchange2currency.ef.currencyprice.grpc";
+option go_package = "com/exchange2currency/currency/client/grpc";
+
+service PriceRPC {
+
+    //行情列表
+    rpc GetQuotation(GetQuotationRequest) returns (GetQuotationResponse) {};    //cmd: 1 2
+
+    //行情列表
+    rpc GetQuotationStop(GetQuotationStopRequest) returns (GetQuotationStopResponse) {};    //cmd: 3 4
+
+    // 获取一个币对的价格比
+    rpc GetSymbolsRate(GetSymbolsRateRequest) returns (GetSymbolsRateResponse) {};  //cmd: 5 6
+}
+
+
+
+service CurrencyRPC {
+    // 获取货币类型
+    rpc GetCurrencyTokens(GetCurrencyTokensRequest) returns (GetCurrencyTokensResponse){}   //cmd: 7 8
+    // 获取货币类型列表
+    rpc GetCurrencyTokensList(GetCurrencyTokensListRequest) returns (GetCurrencyTokensListResponse){}   //cmd: 9 10
+
+    //获取当前位置的初始5个货币
+    rpc GetCurrentCurrencyTokens(GetCurrentCurrencyTokensRequest) returns (GetCurrentCurrencyTokensResponse) {};    //cmd: 11 12
+
+    //获取当前位置的初始5个货币
+    rpc GetDefaultCurrencyTokensList(GetDefaultCurrencyTokensListRequest) returns (GetDefaultCurrencyTokensListResponse) {};    //cmd: 13 14
+}
+
+service TradeRPC {
+    rpc GetKLine(GetKLineRequest)  returns (GetKLineResponse) {};       //cmd: 15 16
+    rpc GetTradeLine(GetTradeLineRequest)  returns (GetTradeLineResponse) {};       //cmd: 17 18
+}
+
+message CommandHead {
+    //命令名称
+    int32 cmd = 1;
+    string cid = 2;
+}
+
+message GetQuotationStopRequest {
+    //命令名称
+    int32 cmd = 1;  //3
+    string cid = 2;
+}
+
+message GetQuotationStopResponse {
+    //命令名称
+    int32 cmd = 1;  //4
+    string cid = 2;
+}
+
+message GetCurrencyTokensListRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 9
+    string cid = 2;
+    //语言
+    string lang = 3;
+}
+
+
+message GetCurrencyTokensRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 7
+    string cid = 2;
+    //语言
+    string lang = 3;
+    string token     = 4;
+}
+
+// 货币类型
+message GetCurrencyTokensResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 8
+    string cid = 2;
+    //货币代码
+    string token       = 3;
+    //货币类型代码: 法币currency、虚拟货币 digital，期货, futures
+    string currencyType       = 4;
+    //货币名称
+    string name     = 5;
+    //icon
+    string icon  = 6;
+    //货币单位
+    string unitName = 7;
+    //价格
+    string usd_amount       = 8;
+    //货币基本单位10的平方
+    int32 base_unit    = 9;
+    //更新日期
+    string update_date = 10;
+
+    string price = 11;
+
+    string countryCode       = 12;
+}
+
+message GetCurrencyTokensListMap {
+    //字母
+    string fchat = 1;
+    repeated GetCurrencyTokensResponse data = 2;
+}
+
+
+message GetCurrencyTokensListResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 10
+    string cid = 2;
+    repeated GetCurrencyTokensListMap data = 3;
+    //更新日期
+    string update_date = 4;
+}
+
+message GetQuotationRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 1
+    string cid = 2;
+    //语言
+    string lang = 3;
+    //货币 cny
+    string tokenFrom              = 4;
+    //到 usd
+    string tokenTo              = 5;
+    //日期单位： 天: 24h，周: 7D，1月: 1M, 6月: 6M, 1年 1Y, 3年: 3Y
+    string dateUnit         =  6;
+}
+
+message QutationBaseData {
+    string priceFrom = 1;
+    string priceTo = 2;
+    string price_date    = 3;   //2022-08-09 32:10:10  103 list(d, d, n, d)
+    int64 price_time    = 4;
+}
+
+// tab = '24H';
+//
+
+message GetQuotationResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 2
+    string cid = 2;
+    string tokenFrom              =3;
+    string tokenTo              =4;
+    string dateUnit         = 5;
+    string amount = 6;
+    repeated QutationBaseData data          = 7;
+    //当前价格
+    string priceFrom = 8;
+    string priceTo = 9;
+    bool is_real = 10;
+}
+
+message GetSymbolsRateRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 5
+    string cid = 2;
+    //语言
+    string lang = 3;
+    string  tokens=4;  //"cny(usd,ero, btc,aud),usd(cny,ero, btc,aud),ero(cny,ero, btc,aud),btc(cny,ero, btc,aud),aud(cny,ero, btc,aud)"
+    // cny(cusd)
+}
+
+message RateBaseData{
+    string token       = 1;
+    string price    = 2;
+    string price1 = 3;
+}
+
+message GetSymbolsRateItem {
+    string  token = 1;
+    map<string, RateBaseData> data = 2; // 定义Map对象
+    string price = 3;
+}
+
+message GetSymbolsRateResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 6
+    string cid = 2;
+    map<string, GetSymbolsRateItem> data = 3; // 定义Map对象
+    //更新日期
+    string update_date = 4;
+    bool is_real = 5;
+}
+
+
+message GetCurrentCurrencyTokensRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 11
+    string cid = 2;
+    //语言
+    string lang = 3;
+    //数量, =0默认5个
+    int32 count = 4;
+    //国家名称
+    string location = 5;
+}
+
+message GetCurrentCurrencyTokensResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 12
+    string cid = 2;
+    repeated GetCurrencyTokensResponse data = 3;
+    //更新日期
+    string update_date = 4;
+}
+
+message GetCurrencyTokenItem {
+    //货币代码
+    string token       = 1;
+
+    //货币类型代码: 法币currency、虚拟货币 digital，期货, futures
+    string currencyType       = 2;
+    //货币名称
+    string name     = 3;
+    //icon
+    string icon  = 4;
+    //货币单位
+    string unitName = 5;
+
+    //国家代码
+    string countryCode = 6;
+
+    map<string, RateBaseData> data = 7; // 定义Map对象
+}
+
+message GetDefaultCurrencyTokensListRequest {
+    //命令名称
+    int32 cmd = 1;      // id: 13
+    string cid = 2;
+}
+
+message GetDefaultCurrencyTokensListResponse {
+    //命令名称
+    int32 cmd = 1;      // id: 14
+    string cid = 2;
+    //数量
+    repeated GetCurrencyTokenItem data = 3;
+}
+
+message GetKLineRequest {
+    //命令名称
+    int32 cmd = 15;      // id: 15
+    string cid = 2;
+    string symbol = 3;
+    int32 type = 4;   //1, 1hour  2, 1day
+    int64 start_time = 5; //utc time , 毫秒
+    int64 end_time = 6;  // ust time, 0: to now , 毫秒
+}
+
+message GetKLineItem {
+    string close = 1;   //关盘价格
+    int64 date = 2;    //时间utc , 毫秒
+    string high = 3;    //最高价
+    string low = 4;     //最低价
+    string open = 5;    //开盘价格
+    string quote_volume = 6;    //成交量
+    string volume = 7;      //成交额度
+    string weighted_average = 8;    //单独一个平均线
+}
+
+message GetKLineResponse {
+    //命令名称
+    int32 cmd = 16;      // id: 16
+    string cid = 2;
+    repeated GetKLineItem data = 3;
+    bool is_real_time = 4;  //是否是实时数据
+}
+
+message GetTradeLineRequest {
+    //命令名称
+    int32 cmd = 17;      // id: 17
+    string cid = 2;
+    string symbol = 3;  //交易对
+    int32 type = 4;   // 默认0： 不填
+    int64 start_time = 5; //utc time , 毫秒, 0, 默认
+    int64 end_time = 6;  // ust time, 0: to now , 毫秒
+}
+
+message TradeLineUserItem {
+    string id = 1;
+    string tradeId = 2;
+    string name = 3;
+    string volume = 4;
+    string avatar = 5;
+}
+
+message GetTradeLineItem {
+    int64 date = 1;    //时间utc , 毫秒
+    string price = 2; // 价格
+    string currency = 3; //货币单位
+    repeated TradeLineUserItem data = 4;    //交易用户
+}
+
+message GetTradeLineResponse {
+    //命令名称
+    int32 cmd = 18;      // id: 18
+    string cid = 2;
+    repeated GetTradeLineItem data = 3;
+    bool is_real_time = 4;  //是否是实时数据
+}
+
+message TradeLineUserResponse {
+    int32 cmd = 18;      // id: 19
+    string cid = 2;
+    string id = 3;
+    string tradeId = 4;
+    string name = 5;
+    string volume = 6;
+    string avatar = 7;
+    int64 date = 8;
+}
+
+
+
